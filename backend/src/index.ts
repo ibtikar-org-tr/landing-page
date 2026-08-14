@@ -11,6 +11,10 @@ app.get('/', (c) => {
   return c.json({ ok: true, service: 'landing-page-be' })
 })
 
+app.get('/health', (c) => {
+  return c.json({ ok: true })
+})
+
 app.route('/api', statsRoute)
 
 export default app

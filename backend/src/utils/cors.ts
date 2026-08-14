@@ -3,6 +3,8 @@ import { cors } from 'hono/cors'
 import type { AppBindings } from '../types/bindings'
 
 const LOCAL_DEV_ORIGINS = [
+  'http://localhost:5925',
+  'http://127.0.0.1:5925',
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   'http://localhost:4173',

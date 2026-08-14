@@ -3,6 +3,7 @@
   "name": "landing-page-be",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-14",
+  "account_id": "46de35678b598e77da2a1810e77ba0a4",
   "d1_databases": [
     {
       "binding": "VMS_LOGS_DB",
@@ -12,7 +13,7 @@
     }
   ],
   "vars": {
-    "FRONTEND_BASE_URL": "http://localhost:5173"
+    "FRONTEND_BASE_URL": "http://localhost:5925"
   },
   "observability": {
     "enabled": true
