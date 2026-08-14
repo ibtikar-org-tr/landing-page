@@ -9,6 +9,7 @@ export function SiteHeader() {
   const { t, dir } = useLocale()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const onDark = !scrolled
 
   const navLinks = [
     { href: '#about', label: t.nav.about },
@@ -35,7 +36,7 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
         <a href="#top" aria-label={t.nav.homeAria}>
-          <Logomark />
+          <Logomark dark={onDark} />
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label={t.nav.primaryNav}>
@@ -43,7 +44,12 @@ export function SiteHeader() {
             <a
               key={link.href}
               href={link.href}
-              className="font-mono text-[13px] uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-foreground"
+              className={cn(
+                'font-mono text-[13px] uppercase tracking-[0.12em] transition-colors',
+                onDark
+                  ? 'text-navy-foreground/70 hover:text-navy-foreground'
+                  : 'text-muted-foreground hover:text-foreground',
+              )}
             >
               {link.label}
             </a>
@@ -51,12 +57,17 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
-          <LanguageSwitcher />
+          <LanguageSwitcher onDark={onDark} />
           <a
             href="https://vms.ibtikar.tr/registration"
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-1.5 border border-foreground bg-foreground px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-primary-foreground transition-colors hover:bg-accent hover:border-accent"
+            className={cn(
+              'group inline-flex items-center gap-1.5 border px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] transition-colors',
+              onDark
+                ? 'border-navy-foreground/30 bg-transparent text-navy-foreground hover:border-accent hover:text-accent'
+                : 'border-foreground bg-foreground text-primary-foreground hover:bg-accent hover:border-accent',
+            )}
           >
             {t.nav.joinUs}
             <ArrowUpRight
@@ -71,11 +82,16 @@ export function SiteHeader() {
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <LanguageSwitcher />
+          <LanguageSwitcher onDark={onDark} />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex items-center justify-center border border-border p-2"
+            className={cn(
+              'inline-flex items-center justify-center border p-2 transition-colors',
+              onDark
+                ? 'border-navy-foreground/30 text-navy-foreground'
+                : 'border-border text-foreground',
+            )}
             aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
             aria-expanded={open}
           >
@@ -85,14 +101,25 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav aria-label={t.nav.mobileNav} className="border-t border-border bg-background px-5 py-6 lg:hidden">
+        <nav
+          aria-label={t.nav.mobileNav}
+          className={cn(
+            'border-t px-5 py-6 lg:hidden',
+            onDark
+              ? 'border-navy-foreground/15 bg-navy text-navy-foreground'
+              : 'border-border bg-background text-foreground',
+          )}
+        >
           <ul className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="font-mono text-sm uppercase tracking-[0.12em] text-foreground"
+                  className={cn(
+                    'font-mono text-sm uppercase tracking-[0.12em]',
+                    onDark ? 'text-navy-foreground' : 'text-foreground',
+                  )}
                 >
                   {link.label}
                 </a>
@@ -104,7 +131,12 @@ export function SiteHeader() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => setOpen(false)}
-                className="inline-flex items-center gap-1.5 border border-foreground bg-foreground px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-primary-foreground"
+                className={cn(
+                  'inline-flex items-center gap-1.5 border px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em]',
+                  onDark
+                    ? 'border-navy-foreground/30 text-navy-foreground'
+                    : 'border-foreground bg-foreground text-primary-foreground',
+                )}
               >
                 {t.nav.joinUs}
                 <ArrowUpRight className={cn('size-3.5', dir === 'rtl' && '-scale-x-100')} />

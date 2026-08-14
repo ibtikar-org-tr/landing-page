@@ -6,9 +6,11 @@ import { cn } from '@/lib/utils'
 interface LanguageSwitcherProps {
   className?: string
   align?: 'start' | 'end'
+  /** When true, header sits over the dark hero — use light chrome. */
+  onDark?: boolean
 }
 
-export function LanguageSwitcher({ className, align = 'end' }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ className, align = 'end', onDark = false }: LanguageSwitcherProps) {
   const { lang, setLang, langs } = useLocale()
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
@@ -43,7 +45,12 @@ export function LanguageSwitcher({ className, align = 'end' }: LanguageSwitcherP
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex items-center gap-1.5 border border-border px-3 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
+        className={cn(
+          'inline-flex items-center gap-1.5 border px-3 py-2 font-mono text-[13px] uppercase tracking-[0.1em] transition-colors',
+          onDark
+            ? 'border-navy-foreground/30 text-navy-foreground hover:border-navy-foreground/70'
+            : 'border-border text-foreground hover:border-foreground',
+        )}
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={menuId}
@@ -59,8 +66,11 @@ export function LanguageSwitcher({ className, align = 'end' }: LanguageSwitcherP
           role="listbox"
           aria-label="Language"
           className={cn(
-            'absolute top-full z-50 mt-2 min-w-full border border-border bg-background py-1 shadow-sm',
+            'absolute top-full z-50 mt-2 min-w-full border py-1 shadow-sm',
             align === 'start' ? 'start-0' : 'end-0',
+            onDark
+              ? 'border-navy-foreground/20 bg-navy text-navy-foreground'
+              : 'border-border bg-background text-foreground',
           )}
         >
           {langs.map((item) => (
@@ -74,8 +84,12 @@ export function LanguageSwitcher({ className, align = 'end' }: LanguageSwitcherP
                 className={cn(
                   'flex w-full items-center px-3 py-2 text-start font-mono text-[13px] tracking-[0.08em] transition-colors',
                   lang === item.code
-                    ? 'bg-foreground text-primary-foreground'
-                    : 'text-foreground hover:bg-secondary',
+                    ? onDark
+                      ? 'bg-navy-foreground text-navy'
+                      : 'bg-foreground text-primary-foreground'
+                    : onDark
+                      ? 'text-navy-foreground hover:bg-navy-foreground/10'
+                      : 'text-foreground hover:bg-secondary',
                 )}
               >
                 {item.label}
