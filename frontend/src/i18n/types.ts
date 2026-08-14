@@ -106,6 +106,8 @@ export type Dictionary = {
     location: string
     instagram: string
     linkedin: string
+    telegramChannel: string
+    telegramContact: string
     whatsapp: string
     email: string
     github: string

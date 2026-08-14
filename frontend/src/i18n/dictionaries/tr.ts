@@ -233,6 +233,8 @@ export const tr: Dictionary = {
     location: 'Türkiye & Suriye',
     instagram: 'Instagram',
     linkedin: 'LinkedIn',
+    telegramChannel: 'Telegram Kanalı',
+    telegramContact: 'Telegram İletişim',
     whatsapp: 'WhatsApp',
     email: 'E-posta',
     github: 'GitHub',

@@ -1,11 +1,14 @@
-import { ArrowUpRight, Share2, Send, Mail, MessageCircle, GitBranch, FileText } from 'lucide-react'
+import { ArrowUpRight, Share2, Mail, MessageCircle, GitBranch, FileText } from 'lucide-react'
 import { Logomark } from '@/components/logomark'
+import { LinkedInIcon, TelegramIcon } from '@/components/social-icons'
 import { useLocale } from '@/i18n/locale-provider'
 import { cn } from '@/lib/utils'
 
 const CONNECT_HREFS = [
   { href: 'https://www.instagram.com/ibtikar.org.tr', key: 'instagram' as const, icon: Share2 },
-  { href: 'https://www.linkedin.com/company/ibtikar-org-tr', key: 'linkedin' as const, icon: Send },
+  { href: 'https://www.linkedin.com/company/ibtikar-org-tr', key: 'linkedin' as const, icon: LinkedInIcon },
+  { href: 'https://t.me/ibtikar_org', key: 'telegramChannel' as const, icon: TelegramIcon },
+  { href: 'https://t.me/ibtikar_org_tr', key: 'telegramContact' as const, icon: TelegramIcon },
   { href: 'https://wa.me/905078222022', key: 'whatsapp' as const, icon: MessageCircle },
   { href: 'mailto:relations@ibtikar.org.tr', key: 'email' as const, icon: Mail },
   { href: 'https://github.com/ibtikar-org-tr', key: 'github' as const, icon: GitBranch },

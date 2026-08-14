@@ -232,6 +232,8 @@ export const ar: Dictionary = {
     location: 'تركيا وسوريا',
     instagram: 'إنستغرام',
     linkedin: 'لينكدإن',
+    telegramChannel: 'قناة تيليغرام',
+    telegramContact: 'تواصل تيليغرام',
     whatsapp: 'واتساب',
     email: 'البريد',
     github: 'GitHub',
