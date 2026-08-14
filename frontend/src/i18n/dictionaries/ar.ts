@@ -228,7 +228,6 @@ export const ar: Dictionary = {
     getInTouch: 'تواصل معنا',
     connect: 'تواصل',
     partners: 'شركاء النجاح',
-    partnerNames: ['تكنوفست', 'مؤسسة T3', 'مؤسسة أنصار', 'مؤسسة شباب تركيا'],
     rights: '© 2026 تجمّع إبتكار التطوّعي. جميع الحقوق محفوظة.',
     location: 'تركيا وسوريا',
     instagram: 'إنستغرام',

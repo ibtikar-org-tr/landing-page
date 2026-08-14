@@ -102,7 +102,6 @@ export type Dictionary = {
     getInTouch: string
     connect: string
     partners: string
-    partnerNames: string[]
     rights: string
     location: string
     instagram: string

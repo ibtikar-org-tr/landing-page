@@ -12,6 +12,44 @@ const CONNECT_HREFS = [
   { href: 'https://github.com/ibtikar-org-tr/bylaws', key: 'bylaws' as const, icon: FileText },
 ]
 
+const PARTNERS = [
+  {
+    name: 'Tulip Technologies',
+    href: 'https://www.tuliptechs.com/',
+    logo: '/partners/tulip.png',
+  },
+  {
+    name: 'Happy Center',
+    href: 'https://www.happycenter.com.tr/',
+    logo: '/partners/happy-center.png',
+  },
+  {
+    name: 'Bina',
+    href: 'https://binaprogram.org/',
+    logo: '/partners/bina.png',
+  },
+  {
+    name: 'Atölye Üsküdar',
+    href: 'https://atolyeuskudar.com/',
+    logo: '/partners/atolye-uskudar.png',
+  },
+  {
+    name: 'MAPS',
+    href: undefined,
+    logo: '/partners/maps.png',
+  },
+  {
+    name: 'Babi Alem',
+    href: 'https://babialem.org/',
+    logo: '/partners/babi-alem.png',
+  },
+  {
+    name: 'Tollabi',
+    href: undefined,
+    logo: '/partners/tollabi.png',
+  },
+]
+
 export function SiteFooter() {
   const { t, dir } = useLocale()
 
@@ -57,12 +95,34 @@ export function SiteFooter() {
             <span className="font-mono text-xs uppercase tracking-[0.25em] text-navy-foreground/50">
               {t.footer.partners}
             </span>
-            <ul className="mt-5 flex flex-col gap-3">
-              {t.footer.partnerNames.map((partner) => (
-                <li key={partner} className="font-mono text-sm tracking-tight text-navy-foreground/80">
-                  {partner}
-                </li>
-              ))}
+            <ul className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3">
+              {PARTNERS.map((partner) => {
+                const content = (
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="h-10 w-full object-contain opacity-80 transition-opacity hover:opacity-100"
+                  />
+                )
+
+                return (
+                  <li key={partner.name} className="flex items-center justify-center rounded-sm border border-navy-foreground/10 bg-navy-foreground/5 px-3 py-4">
+                    {partner.href ? (
+                      <a
+                        href={partner.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block w-full"
+                        aria-label={partner.name}
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      content
+                    )}
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </div>

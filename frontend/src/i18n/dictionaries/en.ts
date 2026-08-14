@@ -229,7 +229,6 @@ export const en: Dictionary = {
     getInTouch: 'Get in touch',
     connect: 'Connect',
     partners: 'Success Partners',
-    partnerNames: ['TEKNOFEST', 'T3 Foundation', 'Ensar Foundation', 'Türkiye Youth Foundation'],
     rights: '© 2026 Ibtikar Volunteer Assembly. All rights reserved.',
     location: 'Turkey & Syria',
     instagram: 'Instagram',

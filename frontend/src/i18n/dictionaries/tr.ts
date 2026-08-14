@@ -229,7 +229,6 @@ export const tr: Dictionary = {
     getInTouch: 'İletişime geç',
     connect: 'Bağlantı',
     partners: 'Başarı Ortakları',
-    partnerNames: ['TEKNOFEST', 'T3 Vakfı', 'Ensar Vakfı', 'Türkiye Gençlik Vakfı'],
     rights: '© 2026 İbtikar Gönüllü Topluluğu. Tüm hakları saklıdır.',
     location: 'Türkiye & Suriye',
     instagram: 'Instagram',
