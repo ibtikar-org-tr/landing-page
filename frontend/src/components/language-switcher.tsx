@@ -1,0 +1,89 @@
+import { useEffect, useId, useRef, useState } from 'react'
+import { ChevronDown, Languages } from 'lucide-react'
+import { useLocale } from '@/i18n/locale-provider'
+import { cn } from '@/lib/utils'
+
+interface LanguageSwitcherProps {
+  className?: string
+  align?: 'start' | 'end'
+}
+
+export function LanguageSwitcher({ className, align = 'end' }: LanguageSwitcherProps) {
+  const { lang, setLang, langs } = useLocale()
+  const [open, setOpen] = useState(false)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const menuId = useId()
+  const current = langs.find((item) => item.code === lang) ?? langs[0]
+
+  useEffect(() => {
+    if (!open) return
+
+    function onPointerDown(event: MouseEvent) {
+      if (!rootRef.current?.contains(event.target as Node)) {
+        setOpen(false)
+      }
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [open])
+
+  return (
+    <div ref={rootRef} className={cn('relative', className)}>
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        className="inline-flex items-center gap-1.5 border border-border px-3 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-foreground transition-colors hover:border-foreground"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={menuId}
+      >
+        <Languages className="size-3.5" aria-hidden="true" />
+        <span>{current.label}</span>
+        <ChevronDown className={cn('size-3.5 transition-transform', open && 'rotate-180')} />
+      </button>
+
+      {open ? (
+        <ul
+          id={menuId}
+          role="listbox"
+          aria-label="Language"
+          className={cn(
+            'absolute top-full z-50 mt-2 min-w-full border border-border bg-background py-1 shadow-sm',
+            align === 'start' ? 'start-0' : 'end-0',
+          )}
+        >
+          {langs.map((item) => (
+            <li key={item.code} role="option" aria-selected={lang === item.code}>
+              <button
+                type="button"
+                onClick={() => {
+                  setLang(item.code)
+                  setOpen(false)
+                }}
+                className={cn(
+                  'flex w-full items-center px-3 py-2 text-start font-mono text-[13px] tracking-[0.08em] transition-colors',
+                  lang === item.code
+                    ? 'bg-foreground text-primary-foreground'
+                    : 'text-foreground hover:bg-secondary',
+                )}
+              >
+                {item.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  )
+}

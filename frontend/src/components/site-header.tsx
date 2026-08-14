@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { LanguageSwitcher } from '@/components/language-switcher'
 import { Logomark } from '@/components/logomark'
 import { useLocale } from '@/i18n/locale-provider'
 import { cn } from '@/lib/utils'
 
 export function SiteHeader() {
-  const { t, lang, setLang, langs, dir } = useLocale()
+  const { t, dir } = useLocale()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -50,24 +51,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
-          <div className="flex items-center gap-1 font-mono text-[13px] tracking-[0.12em]">
-            {langs.map((item) => (
-              <button
-                key={item.code}
-                type="button"
-                onClick={() => setLang(item.code)}
-                className={cn(
-                  'px-1.5 py-1 uppercase transition-colors',
-                  lang === item.code
-                    ? 'text-foreground'
-                    : 'text-muted-foreground hover:text-foreground',
-                )}
-                aria-pressed={lang === item.code}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
+          <LanguageSwitcher />
           <a
             href="https://vms.ibtikar.tr/registration"
             target="_blank"
@@ -86,15 +70,18 @@ export function SiteHeader() {
           </a>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="inline-flex items-center justify-center border border-border p-2 lg:hidden"
-          aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
-          aria-expanded={open}
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex items-center justify-center border border-border p-2"
+            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={open}
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -111,23 +98,6 @@ export function SiteHeader() {
                 </a>
               </li>
             ))}
-            <li className="flex flex-wrap gap-2 pt-2">
-              {langs.map((item) => (
-                <button
-                  key={item.code}
-                  type="button"
-                  onClick={() => setLang(item.code)}
-                  className={cn(
-                    'border px-3 py-1.5 font-mono text-[13px] uppercase tracking-[0.1em]',
-                    lang === item.code
-                      ? 'border-foreground bg-foreground text-primary-foreground'
-                      : 'border-border text-foreground',
-                  )}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </li>
             <li className="pt-2">
               <a
                 href="https://vms.ibtikar.tr/registration"
