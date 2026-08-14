@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     port: 5925,
     proxy: {
-      '/api': 'http://localhost:5926',
+      '/ms/landing-page': 'http://localhost:5926',
     },
   }
 })

@@ -4,7 +4,7 @@ import type { LandingStatsResponse } from '@/types/stats'
 const API_BASE_URL = (import.meta.env.VITE_API_URL as string | undefined)?.trim()
 const STATS_ENDPOINT = API_BASE_URL
   ? `${API_BASE_URL.replace(/\/+$/, '')}/api/stats`
-  : '/api/stats'
+  : '/ms/landing-page/api/stats'
 
 interface UseStatsResult {
   stats: LandingStatsResponse | null

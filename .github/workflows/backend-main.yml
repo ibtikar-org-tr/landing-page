@@ -49,4 +49,4 @@ jobs:
       - name: Deploy to Cloudflare Workers
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: wrangler deploy --config wrangler.local.jsonc --name landing-page-be
+        run: wrangler deploy --config wrangler.local.jsonc --name ia-landing-page-be

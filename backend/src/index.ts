@@ -4,17 +4,20 @@ import type { AppBindings } from './types/bindings'
 import { landingPageCors } from './utils/cors'
 
 const app = new Hono<{ Bindings: AppBindings }>()
+const service = new Hono<{ Bindings: AppBindings }>()
 
-app.use('*', landingPageCors())
+service.use('*', landingPageCors())
 
-app.get('/', (c) => {
-  return c.json({ ok: true, service: 'landing-page-be' })
+service.get('/', (c) => {
+  return c.json({ ok: true, service: 'ia-landing-page-be' })
 })
 
-app.get('/health', (c) => {
+service.get('/health', (c) => {
   return c.json({ ok: true })
 })
 
-app.route('/api', statsRoute)
+service.route('/api', statsRoute)
+
+app.route('/ms/landing-page', service)
 
 export default app
