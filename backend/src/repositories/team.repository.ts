@@ -1,5 +1,7 @@
 import type { D1DatabaseLike } from '../types/bindings'
+import { getStatsCache, isStatsCacheStale, upsertStatsCache } from './stats-cache.repository'
 
+const BOD_STATS_KEY = 'bod'
 const TEAM_MEMBER_LIMIT = 24
 
 interface ProjectRow {
@@ -26,6 +28,11 @@ interface PositionTitleRow {
 export interface PublicTeamMember {
   name: string
   role: string
+}
+
+interface BodCachePayload {
+  projectId: string
+  members: PublicTeamMember[]
 }
 
 function roleLabel(role: string, isOwner: boolean, positionName?: string): string {
@@ -59,7 +66,50 @@ function publicName(enName: string | null, arName: string | null): string | null
   return null
 }
 
-export async function getBoardTeamMembers(
+function parseBodCache(raw: string | null, projectId: string): PublicTeamMember[] | null {
+  if (!raw) {
+    return null
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as Record<string, unknown>
+    if (!parsed || typeof parsed !== 'object') {
+      return null
+    }
+
+    if (parsed.projectId !== projectId) {
+      return null
+    }
+
+    if (!Array.isArray(parsed.members)) {
+      return null
+    }
+
+    const members = parsed.members
+      .map((item) => {
+        if (!item || typeof item !== 'object') {
+          return null
+        }
+
+        const record = item as Record<string, unknown>
+        const name = typeof record.name === 'string' ? record.name.trim() : ''
+        const role = typeof record.role === 'string' ? record.role.trim() : ''
+
+        if (!name) {
+          return null
+        }
+
+        return { name, role }
+      })
+      .filter((item): item is PublicTeamMember => item !== null)
+
+    return members
+  } catch {
+    return null
+  }
+}
+
+async function computeBoardTeamMembers(
   vmsDb: D1DatabaseLike,
   membersDb: D1DatabaseLike,
   projectId: string,
@@ -155,4 +205,31 @@ export async function getBoardTeamMembers(
       }
     })
     .filter((member): member is PublicTeamMember => member !== null)
+}
+
+export async function getBoardTeamMembers(
+  logsDb: D1DatabaseLike,
+  vmsDb: D1DatabaseLike,
+  membersDb: D1DatabaseLike,
+  projectId: string,
+): Promise<PublicTeamMember[] | null> {
+  const cached = await getStatsCache(logsDb, BOD_STATS_KEY)
+  const parsed = cached ? parseBodCache(cached.content_json, projectId) : null
+
+  if (cached && parsed && !isStatsCacheStale(cached.updated_at)) {
+    return parsed
+  }
+
+  const computed = await computeBoardTeamMembers(vmsDb, membersDb, projectId)
+  if (computed === null) {
+    return null
+  }
+
+  const payload: BodCachePayload = {
+    projectId,
+    members: computed,
+  }
+
+  await upsertStatsCache(logsDb, BOD_STATS_KEY, payload)
+  return computed
 }

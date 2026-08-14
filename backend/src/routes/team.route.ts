@@ -14,7 +14,12 @@ teamRoute.get('/team', async (c) => {
   }
 
   try {
-    const members = await getBoardTeamMembers(c.env.VMS_DB, c.env.MEMBERS_DB, projectId)
+    const members = await getBoardTeamMembers(
+      c.env.VMS_LOGS_DB,
+      c.env.VMS_DB,
+      c.env.MEMBERS_DB,
+      projectId,
+    )
 
     if (!members) {
       return c.json({ error: 'Board project was not found.' }, 404)

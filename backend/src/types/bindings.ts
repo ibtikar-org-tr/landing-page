@@ -1,6 +1,7 @@
 export interface D1PreparedStatementResultLike {
   first<T = Record<string, unknown>>(): Promise<T | null>
   all<T = Record<string, unknown>>(): Promise<{ results: T[] }>
+  run(): Promise<unknown>
 }
 
 export interface D1PreparedStatementLike {
