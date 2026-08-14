@@ -1,13 +1,36 @@
 import { ArrowUpRight } from 'lucide-react'
+import type { LandingStatsResponse } from '@/types/stats'
 
-const STATS = [
+const FALLBACK_STATS = [
   { value: '90+', label: 'Projects' },
   { value: '650+', label: 'Members' },
   { value: '1000+', label: 'Students Trained' },
   { value: '2100+', label: 'Community Reach' },
 ]
 
-export function Hero() {
+function formatCount(value: number): string {
+  return value.toLocaleString('en-US')
+}
+
+function buildHeroStats(stats: LandingStatsResponse | null) {
+  if (!stats) {
+    return FALLBACK_STATS
+  }
+
+  return [
+    { value: '90+', label: 'Projects' },
+    { value: formatCount(stats.overview.totalMembers), label: 'Members' },
+    { value: formatCount(stats.overview.universitiesCount), label: 'Universities' },
+    { value: formatCount(stats.overview.countriesCount), label: 'Countries' },
+  ]
+}
+
+interface HeroProps {
+  stats: LandingStatsResponse | null
+}
+
+export function Hero({ stats }: HeroProps) {
+  const displayStats = buildHeroStats(stats)
   return (
     <section
       id="top"
@@ -60,7 +83,7 @@ export function Hero() {
         </div>
 
         <dl className="mt-20 grid grid-cols-2 gap-px border border-navy-foreground/15 bg-navy-foreground/15 sm:grid-cols-4">
-          {STATS.map((stat) => (
+          {displayStats.map((stat) => (
             <div key={stat.label} className="bg-navy px-5 py-6">
               <dt className="font-mono text-xs uppercase tracking-[0.15em] text-navy-foreground/60">
                 {stat.label}

@@ -1,4 +1,5 @@
 import { SectionLabel } from '@/components/section-label'
+import type { LandingStatsResponse } from '@/types/stats'
 
 const SUITES = [
   {
@@ -30,15 +31,41 @@ const SUITES = [
   },
 ]
 
-export function MembersSection() {
+interface MembersSectionProps {
+  stats: LandingStatsResponse | null
+}
+
+export function MembersSection({ stats }: MembersSectionProps) {
+  const totalMembers = stats?.overview.totalMembers ?? 675
+
   return (
     <section id="members" className="border-t border-border bg-secondary py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <SectionLabel index="N.07" title="Members" tone="light" />
 
         <h2 className="mt-6 max-w-xl text-balance font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-foreground md:text-4xl">
-          675 students, four technical suites
+          {totalMembers.toLocaleString('en-US')} students, four technical suites
         </h2>
+
+        {stats ? (
+          <dl className="mt-8 grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-4">
+            {[
+              { label: 'Telegram active', value: stats.overview.telegramActive },
+              { label: 'New this cycle', value: stats.overview.newMembers },
+              { label: 'Universities', value: stats.overview.universitiesCount },
+              { label: 'Countries', value: stats.overview.countriesCount },
+            ].map((item) => (
+              <div key={item.label} className="bg-card px-5 py-5">
+                <dt className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                  {item.label}
+                </dt>
+                <dd className="mt-2 font-mono text-2xl font-bold text-foreground">
+                  {item.value.toLocaleString('en-US')}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {SUITES.map((suite) => (

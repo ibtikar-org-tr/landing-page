@@ -9,19 +9,22 @@ import { ClubsSection } from '@/components/clubs-section'
 import { MembersSection } from '@/components/members-section'
 import { TeamSection } from '@/components/team-section'
 import { SiteFooter } from '@/components/site-footer'
+import { useStats } from '@/hooks/useStats'
 
 function App() {
+  const { stats } = useStats()
+
   return (
     <main className="bg-background">
       <SiteHeader />
-      <Hero />
+      <Hero stats={stats} />
       <AboutSection />
       <PrinciplesSection />
       <JourneyTimeline />
       <AimsSection />
       <ProjectsSection />
       <ClubsSection />
-      <MembersSection />
+      <MembersSection stats={stats} />
       <TeamSection />
       <SiteFooter />
     </main>
