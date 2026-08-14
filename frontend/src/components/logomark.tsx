@@ -1,6 +1,9 @@
 import { cn } from '@/lib/utils'
+import { useLocale } from '@/i18n/locale-provider'
 
 export function Logomark({ className, dark }: { className?: string; dark?: boolean }) {
+  const { t } = useLocale()
+
   return (
     <div className={cn('flex items-center gap-2.5', className)}>
       <svg
@@ -29,7 +32,7 @@ export function Logomark({ className, dark }: { className?: string; dark?: boole
           dark ? 'text-navy-foreground' : 'text-foreground',
         )}
       >
-        IBTIKAR
+        {t.brand}
       </span>
     </div>
   )

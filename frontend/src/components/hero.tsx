@@ -1,28 +1,10 @@
 import { ArrowUpRight } from 'lucide-react'
 import type { LandingStatsResponse } from '@/types/stats'
+import { useLocale } from '@/i18n/locale-provider'
+import { cn } from '@/lib/utils'
 
-const FALLBACK_STATS = [
-  { value: '4+', label: 'Years' },
-  { value: '650+', label: 'Members' },
-  { value: '1000+', label: 'Students Trained' },
-  { value: '2100+', label: 'Community Reach' },
-]
-
-function formatCount(value: number): string {
-  return value.toLocaleString('en-US')
-}
-
-function buildHeroStats(stats: LandingStatsResponse | null) {
-  if (!stats) {
-    return FALLBACK_STATS
-  }
-
-  return [
-    { value: '4+', label: 'Years' },
-    { value: formatCount(stats.overview.totalMembers), label: 'Members' },
-    { value: formatCount(stats.overview.universitiesCount), label: 'Universities' },
-    { value: formatCount(stats.overview.countriesCount), label: 'Countries' },
-  ]
+function formatCount(value: number, locale: string): string {
+  return value.toLocaleString(locale)
 }
 
 interface HeroProps {
@@ -30,7 +12,25 @@ interface HeroProps {
 }
 
 export function Hero({ stats }: HeroProps) {
-  const displayStats = buildHeroStats(stats)
+  const { t, dir } = useLocale()
+
+  const displayStats = stats
+    ? [
+        { value: '4+', label: t.hero.years },
+        { value: formatCount(stats.overview.totalMembers, t.locale), label: t.hero.members },
+        {
+          value: formatCount(stats.overview.universitiesCount, t.locale),
+          label: t.hero.universities,
+        },
+        { value: formatCount(stats.overview.countriesCount, t.locale), label: t.hero.countries },
+      ]
+    : [
+        { value: '4+', label: t.hero.years },
+        { value: '650+', label: t.hero.members },
+        { value: '1000+', label: t.hero.studentsTrained },
+        { value: '2100+', label: t.hero.communityReach },
+      ]
+
   return (
     <section
       id="top"
@@ -42,28 +42,40 @@ export function Hero({ stats }: HeroProps) {
       />
       <div
         aria-hidden="true"
-        className="absolute -right-40 top-24 h-[420px] w-[560px] bg-[url('/images/hero-schematic.svg')] bg-contain bg-right bg-no-repeat opacity-90 md:right-[-120px] md:top-16"
+        className={cn(
+          'absolute top-24 h-[420px] w-[560px] bg-[url("/images/hero-schematic.svg")] bg-contain bg-no-repeat opacity-90 md:top-16',
+          dir === 'rtl'
+            ? '-left-40 bg-left md:left-[-120px]'
+            : '-right-40 bg-right md:right-[-120px]',
+        )}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/95 to-transparent" aria-hidden="true" />
+      <div
+        className={cn(
+          'absolute inset-0 to-transparent',
+          dir === 'rtl'
+            ? 'bg-gradient-to-l from-navy via-navy/95'
+            : 'bg-gradient-to-r from-navy via-navy/95',
+        )}
+        aria-hidden="true"
+      />
 
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex items-center gap-3">
           <span className="h-2 w-2 rounded-full bg-accent" />
           <span className="font-mono text-xs uppercase tracking-[0.3em] text-navy-foreground/70">
-            Est. Oct 2022 — Turkey & Syria
+            {t.hero.eyebrow}
           </span>
         </div>
 
         <h1 className="mt-8 max-w-3xl text-balance font-mono text-5xl font-bold uppercase leading-[1.05] tracking-tight md:text-7xl">
-          A Generation
+          {t.hero.titleLine1}
           <br />
-          That <span className="text-accent">Innovates</span>_
+          {t.hero.titleLine2Before ? `${t.hero.titleLine2Before} ` : null}
+          <span className="text-accent">{t.hero.titleLine2Accent}</span>_
         </h1>
 
         <p className="mt-8 max-w-xl text-pretty text-lg leading-relaxed text-navy-foreground/80">
-          Ibtikar Volunteer Assembly is a volunteer team of Arabic-speaking university students in
-          Turkey and Syria, building technical skills through research, innovation projects and
-          community-led development — from campus life to TEKNOFEST.
+          {t.hero.body}
         </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -71,14 +83,21 @@ export function Hero({ stats }: HeroProps) {
             href="#projects"
             className="group inline-flex items-center gap-2 bg-accent px-6 py-3.5 font-mono text-sm font-bold uppercase tracking-[0.1em] text-accent-foreground transition-transform hover:-translate-y-0.5"
           >
-            Explore Projects
-            <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            {t.hero.exploreProjects}
+            <ArrowUpRight
+              className={cn(
+                'size-4 transition-transform',
+                dir === 'rtl'
+                  ? 'group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 -scale-x-100'
+                  : 'group-hover:translate-x-0.5 group-hover:-translate-y-0.5',
+              )}
+            />
           </a>
           <a
             href="#about"
             className="inline-flex items-center gap-2 border border-navy-foreground/30 px-6 py-3.5 font-mono text-sm uppercase tracking-[0.1em] text-navy-foreground transition-colors hover:border-navy-foreground/70"
           >
-            Our Story
+            {t.hero.ourStory}
           </a>
         </div>
 

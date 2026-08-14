@@ -71,4 +71,11 @@
   body {
     @apply bg-background font-sans text-foreground antialiased;
   }
+  html.font-arabic,
+  html.font-arabic body {
+    font-family: "IBM Plex Sans Arabic", "Inter", ui-sans-serif, system-ui, sans-serif;
+  }
+  html.font-arabic .font-mono {
+    font-family: "IBM Plex Sans Arabic", "Space Grotesk", ui-monospace, monospace;
+  }
 }
