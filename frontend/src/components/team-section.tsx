@@ -8,11 +8,11 @@ const FALLBACK_TEAM: LandingTeamMember[] = [
   },
   {
     name: 'Lilas Haroun',
-    role: 'Head of Logistics Unit',
+    role: 'Director of the Logistics Unit',
   },
   {
     name: 'Abduallah Damash',
-    role: 'Head of Projects Unit',
+    role: 'Director of the Projects Unit',
   },
 ]
 
@@ -28,7 +28,7 @@ export function TeamSection({ members }: TeamSectionProps) {
   return (
     <section id="team" className="bg-background py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <SectionLabel index="N.08" title="Volunteers" tone="light" />
+        <SectionLabel index="N.08" title="Board of Directors" tone="light" />
 
         <h2 className="mt-6 max-w-xl text-balance font-mono text-3xl font-bold uppercase leading-tight tracking-tight text-foreground md:text-4xl">
           Run by students, for students

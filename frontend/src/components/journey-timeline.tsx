@@ -5,7 +5,7 @@ const MILESTONES = [
     date: '10 / 2022',
     metric: '+10',
     title: 'Beginning',
-    body: 'The idea started with simple steps, aiming at a greater vision.',
+    body: 'Founded on 5 October 2022 — the idea started with simple steps, aiming at a greater vision.',
   },
   {
     date: '05 / 2023',
@@ -56,7 +56,7 @@ export function JourneyTimeline() {
         <SectionLabel index="N.03" title="Ibtikar's Journey" />
 
         <h2 className="mt-6 max-w-2xl text-balance font-mono text-3xl font-bold uppercase leading-tight tracking-tight md:text-4xl">
-          From a simple idea to a national movement
+          From a simple idea to a cross-border community
         </h2>
 
         <ol className="mt-16 space-y-0 border-l border-navy-foreground/20 md:ml-2">

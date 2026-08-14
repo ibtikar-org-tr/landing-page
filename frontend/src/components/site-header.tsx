@@ -31,7 +31,7 @@ export function SiteHeader() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
-        <a href="#top" aria-label="IBTIKAR Assembly home">
+        <a href="#top" aria-label="Ibtikar Volunteer Assembly home">
           <Logomark />
         </a>
 
@@ -50,7 +50,9 @@ export function SiteHeader() {
         <div className="hidden items-center gap-4 lg:flex">
           <span className="font-mono text-[13px] tracking-[0.12em] text-muted-foreground">EN</span>
           <a
-            href="#contact"
+            href="https://vms.ibtikar.tr/registration"
+            target="_blank"
+            rel="noreferrer"
             className="group inline-flex items-center gap-1.5 border border-foreground bg-foreground px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-primary-foreground transition-colors hover:bg-accent hover:border-accent"
           >
             Join Us
@@ -85,7 +87,9 @@ export function SiteHeader() {
             ))}
             <li className="pt-2">
               <a
-                href="#contact"
+                href="https://vms.ibtikar.tr/registration"
+                target="_blank"
+                rel="noreferrer"
                 onClick={() => setOpen(false)}
                 className="inline-flex items-center gap-1.5 border border-foreground bg-foreground px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-primary-foreground"
               >

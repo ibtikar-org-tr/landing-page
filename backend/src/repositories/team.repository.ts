@@ -46,7 +46,7 @@ function roleLabel(role: string, isOwner: boolean, positionName?: string): strin
   }
 
   if (role === 'manager') {
-    return 'Board Manager'
+    return 'Director of an Administrative Unit'
   }
 
   return 'Board Member'

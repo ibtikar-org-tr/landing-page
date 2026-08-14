@@ -50,7 +50,7 @@ export function Hero({ stats }: HeroProps) {
         <div className="flex items-center gap-3">
           <span className="h-2 w-2 rounded-full bg-accent" />
           <span className="font-mono text-xs uppercase tracking-[0.3em] text-navy-foreground/70">
-            Est. 2022 — Istanbul, Turkey
+            Est. Oct 2022 — Turkey & Syria
           </span>
         </div>
 
@@ -61,9 +61,9 @@ export function Hero({ stats }: HeroProps) {
         </h1>
 
         <p className="mt-8 max-w-xl text-pretty text-lg leading-relaxed text-navy-foreground/80">
-          IBTIKAR Assembly is a volunteer team of Arabic-speaking university students in Turkey,
-          building technical skills through research, innovation projects and community-led
-          development — from campus life to TEKNOFEST.
+          Ibtikar Volunteer Assembly is a volunteer team of Arabic-speaking university students in
+          Turkey and Syria, building technical skills through research, innovation projects and
+          community-led development — from campus life to TEKNOFEST.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-4">

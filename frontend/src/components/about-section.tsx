@@ -3,10 +3,10 @@ import { SectionLabel } from '@/components/section-label'
 const PANELS = [
   {
     tag: 'VISION',
-    body: 'Leader community in building conscious youth, innovative solutions, and social impact.',
+    body: 'A leader community in building conscious youth, innovative solutions, and with social impact.',
   },
   {
-    tag: 'MESSAGE',
+    tag: 'MISSION',
     body: 'Investing and coordinating efforts among students to develop their technical skills, stimulate their innovation and creativity, and enhance their effectiveness in serving and advancing society.',
   },
 ]
@@ -23,10 +23,10 @@ export function AboutSection() {
               Empowering Arab students to build, research and lead in technology
             </h2>
             <p className="mt-6 max-w-md text-pretty leading-relaxed text-muted-foreground">
-              IBTIKAR Assembly is a volunteer team that brings together Arabic-speaking university
-              students interested in innovation, technology, research and development. We empower
-              them and enrich their technical expertise through activities and projects that touch
-              student life — from university years, through technical and community skill
+              Ibtikar Volunteer Assembly is a volunteer team of Arabic-speaking university students
+              in Turkey and Syria interested in innovation, technology, research and development. We
+              empower them and enrich their technical expertise through activities and projects that
+              touch student life — from university years, through technical and community skill
               development, to professional planning and project management.
             </p>
           </div>

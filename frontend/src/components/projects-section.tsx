@@ -7,18 +7,21 @@ const PROJECTS = [
     title: 'TEKNOFEST Arabic Platform',
     body: 'A student platform that attracts Arab students eager to work on TEKNOFEST projects — forming and supervising work teams.',
     tags: ['Innovation', 'Experiences', 'Technology'],
+    href: 'https://linktr.ee/ibtikar.org.tr',
   },
   {
     icon: Pickaxe,
     title: 'Ibtikar Mines',
     body: 'An organizational project guiding Arab students in Turkey toward useful technical programs, local or virtual.',
     tags: ['Empowerment', 'Employment'],
+    href: 'https://linktr.ee/ibtikar.org.tr',
   },
   {
     icon: Snowflake,
     title: 'Freezcamps',
     body: 'A different, unique course experience — starting as a normal course, then turning into a practical, interactive one.',
     tags: ['Educational', 'Skills', 'Development'],
+    href: 'https://lms.ibtikar.org.tr',
   },
   {
     icon: Users,
@@ -58,9 +61,22 @@ export function ProjectsSection() {
             <div key={project.title} className="flex flex-col bg-card p-7">
               <project.icon className="size-6 text-accent" strokeWidth={1.5} aria-hidden="true" />
               <h3 className="mt-5 font-mono text-lg font-bold uppercase leading-snug tracking-tight text-foreground">
-                {project.title}
+                {project.href ? (
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-accent"
+                  >
+                    {project.title}
+                  </a>
+                ) : (
+                  project.title
+                )}
               </h3>
-              <p className="mt-3 text-pretty text-sm leading-relaxed text-muted-foreground">{project.body}</p>
+              <p className="mt-3 text-pretty text-sm leading-relaxed text-muted-foreground">
+                {project.body}
+              </p>
               <ul className="mt-6 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <li
