@@ -9,6 +9,7 @@ export const LANGS: { code: Lang; label: string; dir: Dir }[] = [
 
 export const DEFAULT_LANG: Lang = 'en'
 export const STORAGE_KEY = 'ibtikar-landing-lang'
+export const LANG_QUERY_PARAM = 'lang'
 
 export type Dictionary = {
   dir: Dir

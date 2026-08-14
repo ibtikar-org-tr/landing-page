@@ -4,6 +4,7 @@ import { tr } from './dictionaries/tr'
 import {
   DEFAULT_LANG,
   isLang,
+  LANG_QUERY_PARAM,
   LANGS,
   STORAGE_KEY,
   type Dictionary,
@@ -11,7 +12,7 @@ import {
   type Lang,
 } from './types'
 
-export { LANGS, DEFAULT_LANG, STORAGE_KEY, isLang }
+export { LANGS, DEFAULT_LANG, STORAGE_KEY, LANG_QUERY_PARAM, isLang }
 export type { Dictionary, Dir, Lang }
 
 const DICTIONARIES: Record<Lang, Dictionary> = { ar, en, tr }
@@ -20,9 +21,25 @@ export function getDictionary(lang: Lang): Dictionary {
   return DICTIONARIES[lang]
 }
 
+export function readLangFromUrl(search = window.location.search): Lang | null {
+  const value = new URLSearchParams(search).get(LANG_QUERY_PARAM)
+  return isLang(value) ? value : null
+}
+
+export function writeLangToUrl(lang: Lang) {
+  const url = new URL(window.location.href)
+  url.searchParams.set(LANG_QUERY_PARAM, lang)
+  window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`)
+}
+
 export function detectInitialLang(): Lang {
   if (typeof window === 'undefined') {
     return DEFAULT_LANG
+  }
+
+  const fromUrl = readLangFromUrl()
+  if (fromUrl) {
+    return fromUrl
   }
 
   const stored = window.localStorage.getItem(STORAGE_KEY)

@@ -5,6 +5,8 @@ import {
   getDictionary,
   LANGS,
   STORAGE_KEY,
+  readLangFromUrl,
+  writeLangToUrl,
   type Dictionary,
   type Dir,
   type Lang,
@@ -28,6 +30,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     applyDocumentLocale(lang, dir)
     window.localStorage.setItem(STORAGE_KEY, lang)
+    writeLangToUrl(lang)
     document.title =
       lang === 'ar'
         ? 'تجمّع إبتكار التطوّعي — جيل يبتكر'
@@ -35,6 +38,18 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
           ? 'İbtikar Gönüllü Topluluğu — İnovasyon Yapan Bir Nesil'
           : 'Ibtikar Volunteer Assembly — A Generation That Innovates'
   }, [lang, dir])
+
+  useEffect(() => {
+    function onPopState() {
+      const fromUrl = readLangFromUrl()
+      if (fromUrl) {
+        setLangState(fromUrl)
+      }
+    }
+
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
 
   function setLang(next: Lang) {
     setLangState(next)
