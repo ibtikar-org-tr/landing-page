@@ -10,10 +10,23 @@
       "database_name": "vms-logs-database",
       "database_id": "cf2a70eb-8001-4b7f-ab1d-a4062a779b6d",
       "remote": true
+    },
+    {
+      "binding": "MEMBERS_DB",
+      "database_name": "membership-app-database",
+      "database_id": "bb86e7a4-11e2-4d80-88b8-c376a19994dd",
+      "remote": true
+    },
+    {
+      "binding": "VMS_DB",
+      "database_name": "vms-database",
+      "database_id": "bbd89415-677e-4991-bb11-ea1be7e2d095",
+      "remote": true
     }
   ],
   "vars": {
-    "FRONTEND_BASE_URL": "http://localhost:5925"
+    "FRONTEND_BASE_URL": "http://localhost:5925",
+    "BOARD_PROJECT_ID": "38e806b6-98d7-4e42-b99b-0f2c18b62a53"
   },
   "observability": {
     "enabled": true

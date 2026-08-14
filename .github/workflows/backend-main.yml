@@ -33,15 +33,25 @@ jobs:
 
       - name: Update wrangler config with environment variables
         run: |
-          jq_filter='.d1_databases[0].database_id = $dbid
-          | .d1_databases[0].database_name = $dbname
+          jq_filter='.d1_databases[0].database_id = $logsId
+          | .d1_databases[0].database_name = $logsName
+          | .d1_databases[1].database_id = $membersId
+          | .d1_databases[1].database_name = $membersName
+          | .d1_databases[2].database_id = $vmsId
+          | .d1_databases[2].database_name = $vmsName
           | .vars.FRONTEND_BASE_URL = $frontendBaseUrl
+          | .vars.BOARD_PROJECT_ID = $boardProjectId
           | .account_id = $accountId'
 
           jq \
-            --arg dbid "${{ vars.VMS_LOGS_DB_ID }}" \
-            --arg dbname "${{ vars.VMS_LOGS_DB_NAME }}" \
+            --arg logsId "${{ vars.VMS_LOGS_DB_ID }}" \
+            --arg logsName "${{ vars.VMS_LOGS_DB_NAME }}" \
+            --arg membersId "${{ vars.MEMBERS_DB_ID }}" \
+            --arg membersName "${{ vars.MEMBERS_DB_NAME }}" \
+            --arg vmsId "${{ vars.VMS_DB_ID }}" \
+            --arg vmsName "${{ vars.VMS_DB_NAME }}" \
             --arg frontendBaseUrl "${{ vars.FRONTEND_BASE_URL }}" \
+            --arg boardProjectId "${{ vars.BOARD_PROJECT_ID }}" \
             --arg accountId "${{ vars.CLOUDFLARE_ACCOUNT_ID }}" \
             "$jq_filter" \
             wrangler.jsonc > wrangler.local.jsonc

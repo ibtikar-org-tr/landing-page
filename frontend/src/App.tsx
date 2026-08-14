@@ -10,9 +10,11 @@ import { MembersSection } from '@/components/members-section'
 import { TeamSection } from '@/components/team-section'
 import { SiteFooter } from '@/components/site-footer'
 import { useStats } from '@/hooks/useStats'
+import { useTeam } from '@/hooks/useTeam'
 
 function App() {
   const { stats } = useStats()
+  const { members } = useTeam()
 
   return (
     <main className="bg-background">
@@ -25,7 +27,7 @@ function App() {
       <ProjectsSection />
       <ClubsSection />
       <MembersSection stats={stats} />
-      <TeamSection />
+      <TeamSection members={members} />
       <SiteFooter />
     </main>
   )
