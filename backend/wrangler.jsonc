@@ -18,6 +18,6 @@
     "enabled": true
   },
   "dev": {
-    "port": 8788
+    "port": 5926
   }
 }
