@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "landing-page-be",
+  "name": "ia-landing-page-be",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-14",
   "account_id": "46de35678b598e77da2a1810e77ba0a4",
