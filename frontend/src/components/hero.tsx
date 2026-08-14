@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import type { LandingStatsResponse } from '@/types/stats'
 
 const FALLBACK_STATS = [
-  { value: '90+', label: 'Projects' },
+  { value: '4+', label: 'Years' },
   { value: '650+', label: 'Members' },
   { value: '1000+', label: 'Students Trained' },
   { value: '2100+', label: 'Community Reach' },
@@ -18,7 +18,7 @@ function buildHeroStats(stats: LandingStatsResponse | null) {
   }
 
   return [
-    { value: '90+', label: 'Projects' },
+    { value: '4+', label: 'Years' },
     { value: formatCount(stats.overview.totalMembers), label: 'Members' },
     { value: formatCount(stats.overview.universitiesCount), label: 'Universities' },
     { value: formatCount(stats.overview.countriesCount), label: 'Countries' },
